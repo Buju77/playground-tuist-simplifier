@@ -26,7 +26,7 @@ extension Project {
             let swiftlintTarget = Target.makeTarget(name: "SwiftLint",
                                                     sources: [],
                                                     scripts: [
-                                                        .pre(path: "swiftlint.sh", name: "Run SwiftLint")
+                                                        .pre(script: "\"$SRCROOT\"/swiftlint.sh", name: "Run SwiftLint") // dummy script
                                                     ])
             targets.append(swiftlintTarget)
         }

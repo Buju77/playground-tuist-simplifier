@@ -15,10 +15,10 @@ public struct RTDefaults {
 
         let defaultAdditionalFiles: [FileElement] = [
             "./**/.swiftlint.yml", // .swiftlint.yml file can appear in multiple directories under project root
-            "Gemfile",
-            "Gemfile.lock",
-            "Podfile",
-            "Podfile.lock",
+            "./Gemfile*",
+//            "Gemfile.lock",
+            "./Podfile*",
+//            "Podfile.lock",
             "Project.swift",
             "*.podspec",
             "./**/*.md", // Also catches README.md
