@@ -18,7 +18,8 @@ extension Project {
                                    schemes: [Scheme] = [],
                                    additionalFiles: [FileElement] = [],
                                    addDefaultAdditionalFiles: Bool = true,
-                                   generateSwiftlintTarget: Bool = true) -> Project {
+                                   generateSwiftlintTarget: Bool = true,
+                                   generateSchemes: Bool = true) -> Project {
         var targets = targets
 
         /** Automatically add Swiftlint target */
@@ -33,17 +34,20 @@ extension Project {
 
         // create a scheme for every target per default if not passed in from the outside
         var projectSchemes = schemes
-        if projectSchemes.isEmpty {
-            projectSchemes = makeSchemes(targets)
-        } else {
-            if generateSwiftlintTarget {
-                projectSchemes.append(makeSwiftLintScheme())
+        if generateSchemes {
+            if projectSchemes.isEmpty {
+                projectSchemes = makeSchemes(targets)
+            } else {
+                if generateSwiftlintTarget {
+                    projectSchemes.append(makeSwiftLintScheme())
+                }
             }
         }
 
         let extraFiles = RTDefaults.makeRTAdditionalFiles(addDefaultFiles: addDefaultAdditionalFiles, otherFiles: additionalFiles)
         return Project(name: name,
                        organizationName: RTDefaults.organizationIdentifier,
+                       options: .options(automaticSchemesOptions: .disabled),
                        settings: settings ?? RTDefaults.makeDefaultSettings(),
                        targets: targets,
                        schemes: projectSchemes,
